@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 
 import registerServiceWorker from './registerServiceWorker'
 
-import './styles/css/index.css'
+import './styles/index.css'
 
 import App from './components/App'
 import routes from './routes'
