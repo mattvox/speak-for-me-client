@@ -29,8 +29,6 @@ export const fetchHouseRepData = (state, district) => async dispatch => {
   const response = await axios.get(`${ROOT_URL}representatives/house`, { params: { state, district } })
 
   dispatch({ type: FETCH_HOUSE_REP_DATA, payload: response.data })
-  dispatch(fetchTimesData('Elizabeth', 'Warren', 'W000817'))
-  dispatch(fetchTimesData('Cory', 'Booker', 'B001288'))
 }
 
 export const fetchSenateRepData = (state) => async dispatch => {
@@ -45,9 +43,9 @@ export const fetchDetailedRepData = (id) => async dispatch => {
   dispatch({ type: FETCH_DETAILED_REP_DATA, payload: response.data })
 }
 
-export const fetchTimesData = (firstName, lastName, id) => async dispatch => {
+export const fetchTimesData = (name, id) => async dispatch => {
   const response = await axios.get(`${ROOT_URL}representatives/nyt/articles`, {
-    params: { name: `${firstName} ${lastName}`}
+    params: { name }
   })
 
   dispatch({ type: FETCH_TIMES_DATA, payload: response.data, id })

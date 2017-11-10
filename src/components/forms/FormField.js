@@ -1,15 +1,18 @@
 import React from 'react'
+import TextField from 'material-ui/TextField'
 
-const SurveyField = ({ input, label, meta: { error, touched } }) => {
+const FormField = ({ input, label, meta: { error, touched } }) => {
   return (
     <div>
-      <label>{label}</label>
-      <input {...input} style={{ marginBottom: '5px' }}/>
-      <div style={{ marginBottom: '20px' }}>
-        {touched && error}
-      </div>
+      <TextField
+        {...input}
+        label={label}
+        margin='normal'
+        helperText={touched && error}
+        fullWidth
+      />
     </div>
   )
 }
 
-export default SurveyField
+export default FormField

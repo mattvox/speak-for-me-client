@@ -9,7 +9,7 @@ export default (
   <BrowserRouter>
     <Switch>
       <Route exact path='/' component={HomePage} />
-      <Route exact path='/:rep/:id' component={RepDetailPage} />
+      <Route exact path='/reps/:id' component={RepDetailPage} />
       <Route component={NotFoundPage} />
     </Switch>
   </BrowserRouter>
