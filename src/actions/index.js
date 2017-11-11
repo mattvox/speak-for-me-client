@@ -1,9 +1,8 @@
+import { each as _each } from 'lodash'
 import axios from 'axios'
 import {
   FETCH_USER_DATA,
-  FETCH_HOUSE_REP_DATA,
-  FETCH_SENATE_REP_DATA,
-  FETCH_DETAILED_REP_DATA,
+  FETCH_REP_DATA,
   FETCH_TIMES_DATA,
 }from './types'
 
@@ -20,32 +19,41 @@ export const submitAddressForm = values => async dispatch => {
 
   const { state, district } = response.data
 
-  dispatch(fetchHouseRepData(state, district))
-  dispatch(fetchSenateRepData(state))
   dispatch({ type: FETCH_USER_DATA, payload: response.data })
+  dispatch(fetchRepIds(state, 'house', district))
+  dispatch(fetchRepIds(state, 'senate', district))
 }
 
-export const fetchHouseRepData = (state, district) => async dispatch => {
-  const response = await axios.get(`${ROOT_URL}representatives/house`, { params: { state, district } })
+export const fetchRepIds = (state, chamber, district) => {
+  const params = {
+    state,
+    chamber,
+  }
 
-  dispatch({ type: FETCH_HOUSE_REP_DATA, payload: response.data })
+  chamber === 'house' && (params.district = district)
+
+  return async dispatch => {
+    const response =
+      await axios.get(`${ROOT_URL}representatives/${chamber}`,
+        { params }
+      )
+
+    return Array.isArray(response.data)
+      ? _each(response.data, rep =>
+        dispatch(fetchRepData(rep.id)))
+      : dispatch(fetchRepData(response.data.id))
+  }
 }
 
-export const fetchSenateRepData = (state) => async dispatch => {
-  const response = await axios.get(`${ROOT_URL}representatives/senate`, { params: { state } })
-
-  dispatch({ type: FETCH_SENATE_REP_DATA, payload: response.data })
-}
-
-export const fetchDetailedRepData = (id) => async dispatch => {
+export const fetchRepData = (id) => async dispatch => {
   const response = await axios.get(`${ROOT_URL}representatives/${id}`)
 
-  dispatch({ type: FETCH_DETAILED_REP_DATA, payload: response.data })
+  dispatch({ type: FETCH_REP_DATA, payload: response.data })
 }
 
-export const fetchTimesData = (name, id) => async dispatch => {
+export const fetchTimesData = (firstName, lastName, id) => async dispatch => {
   const response = await axios.get(`${ROOT_URL}representatives/nyt/articles`, {
-    params: { name }
+    params: { name: `${firstName}${lastName}` }
   })
 
   dispatch({ type: FETCH_TIMES_DATA, payload: response.data, id })

@@ -5,16 +5,26 @@ import Grid from 'material-ui/Grid'
 import RepDetailCard from '../RepDetailCard'
 import MediaCard from '../MediaCard'
 
-import { fetchDetailedRepData, fetchTimesData } from '../../actions'
+import { fetchRepData, fetchTimesData } from '../../actions'
 
 class RepDetailPage extends Component {
   componentDidMount() {
     const { id } = this.props.match.params
-    const { name } = this.props.reps[id]
 
-    this.props.fetchDetailedRepData(id)
-    this.props.fetchTimesData(name, id)
+
+    this.props.fetchRepData(id)
+
   }
+
+  // componentDidUpdate() {
+  //   const { id } = this.props.match.params
+  //
+  //   const { first_name, last_name } = this.props.reps[id]
+  //
+  //   this.props.reps[id].first_name &&
+  //     !this.props.news[id] &&
+  //       this.props.fetchTimesData(first_name, last_name, id)
+  // }
 
   renderNews() {
     const { id } = this.props.match.params
@@ -51,7 +61,7 @@ class RepDetailPage extends Component {
     return (
       <div>
         <Grid container spacing={24} justify='center'>
-          {this.props.reps && this.props.reps[id] && this.props.reps[id].roles && this.renderRep()}
+          {this.props.reps && this.props.reps[id] && this.renderRep()}
         </Grid>
         <div style={{ marginTop: 30 }}></div>
         <Grid container spacing={24} justify='center'>
@@ -65,6 +75,6 @@ class RepDetailPage extends Component {
 const mapStateToProps = ({ reps, news }) => ({ reps, news })
 
 export default connect(mapStateToProps, {
-  fetchDetailedRepData,
+  fetchRepData,
   fetchTimesData,
 })(RepDetailPage)

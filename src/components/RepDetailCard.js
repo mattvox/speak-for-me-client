@@ -17,14 +17,11 @@ const RepDetailCard = props => {
   const {
     classes,
     id,
-    name,
-    role,
+    first_name,
+    last_name,
+    title,
     party,
     state,
-    roles,
-  } = props
-
-  const {
     congress,
     office,
     phone,
@@ -32,12 +29,12 @@ const RepDetailCard = props => {
     bills_sponsored,
     bills_cosponsored,
     votes_with_party_pct,
-  } = roles[0]
+  } = props
 
   const description = (
     <div>
       <p>
-        {name} is currently serving as the {role} from {state} in the {congress}th United States Congress. {name} has sponsored {bills_sponsored} bills, co-sponsored {bills_cosponsored} bills, and votes along party lines {votes_with_party_pct}% of the time.
+        {last_name} is currently serving as the {title} from {state} in the {congress}th United States Congress. {last_name} has sponsored {bills_sponsored} bills, co-sponsored {bills_cosponsored} bills, and votes along party lines {votes_with_party_pct}% of the time.
       </p>
       <p><strong>Office/Contact Information</strong></p>
       <p>Address: {office}</p>
@@ -60,7 +57,7 @@ const RepDetailCard = props => {
 
           <Grid item xs>
             <Typography type='headline' component='h1'>
-              {name}
+              {`${first_name} ${last_name}`}
             </Typography>
             <div style={{ marginTop: 8 }}></div>
             <Typography type='body1' component='h3'>

@@ -19,7 +19,7 @@ const MediaCard = props => {
     classes,
     id,
     name,
-    role,
+    title,
     party,
     state,
   } = props
@@ -42,7 +42,7 @@ const MediaCard = props => {
             {party === 'I' ? 'Independent': ''}
           </Typography>
           <Typography component='p'>
-            {role} for {state}
+            {title} for {state}
           </Typography>
         </CardContent>
         <CardActions>
