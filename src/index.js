@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 
 import registerServiceWorker from './registerServiceWorker'
 
+import 'semantic-ui-css/semantic.min.css'
 import './styles/index.css'
 
 import App from './components/App'
