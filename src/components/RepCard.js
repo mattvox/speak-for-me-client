@@ -18,7 +18,8 @@ const MediaCard = props => {
   const {
     classes,
     id,
-    name,
+    first_name,
+    last_name,
     title,
     party,
     state,
@@ -34,7 +35,7 @@ const MediaCard = props => {
         />
         <CardContent>
           <Typography type='headline' component='h2'>
-            {name}
+            {`${first_name} ${last_name}`}
           </Typography>
           <Typography type='body1' component='div'>
             {party === 'D' ? 'Democrat': ''}

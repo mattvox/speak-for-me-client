@@ -10,21 +10,37 @@ import { fetchRepData, fetchTimesData } from '../../actions'
 class RepDetailPage extends Component {
   componentDidMount() {
     const { id } = this.props.match.params
+    const {
+      reps,
+      news,
+      fetchRepData,
+      fetchTimesData,
+    } = this.props
 
+    reps ? reps[id] || fetchRepData(id) : fetchRepData(id)
 
-    this.props.fetchRepData(id)
+    if (reps && reps[id]) {
+      const { first_name, last_name } = reps[id]
 
+      news
+        ? news[id] || fetchTimesData(first_name, last_name, id)
+        : fetchTimesData(first_name, last_name, id)
+    }
   }
 
-  // componentDidUpdate() {
-  //   const { id } = this.props.match.params
-  //
-  //   const { first_name, last_name } = this.props.reps[id]
-  //
-  //   this.props.reps[id].first_name &&
-  //     !this.props.news[id] &&
-  //       this.props.fetchTimesData(first_name, last_name, id)
-  // }
+  componentDidUpdate() {
+    const { id } = this.props.match.params
+    const {
+      reps: { [id]: rep },
+      news,
+      fetchTimesData,
+    } = this.props
+    const { first_name, last_name } = rep
+
+    rep && news
+      ? news[id] || fetchTimesData(first_name, last_name, id)
+      : fetchTimesData(first_name, last_name, id)
+  }
 
   renderNews() {
     const { id } = this.props.match.params
@@ -45,13 +61,12 @@ class RepDetailPage extends Component {
     const { id } = this.props.match.params
 
     return (
-
-        <Grid item xs={12}>
-          <RepDetailCard
-            state='NJ'
-            { ...this.props.reps[id] }
-          />
-        </Grid>
+      <Grid item xs={12}>
+        <RepDetailCard
+          state='NJ'
+          { ...this.props.reps[id] }
+        />
+      </Grid>
     )
   }
 

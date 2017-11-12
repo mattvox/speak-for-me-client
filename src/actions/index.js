@@ -53,7 +53,7 @@ export const fetchRepData = (id) => async dispatch => {
 
 export const fetchTimesData = (firstName, lastName, id) => async dispatch => {
   const response = await axios.get(`${ROOT_URL}representatives/nyt/articles`, {
-    params: { name: `${firstName}${lastName}` }
+    params: { name: `${firstName} ${lastName}` }
   })
 
   dispatch({ type: FETCH_TIMES_DATA, payload: response.data, id })
