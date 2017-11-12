@@ -1,8 +1,4 @@
-// import { mapKeys as _mapKeys } from 'lodash'
-
-import {
-  FETCH_REP_DATA,
-} from '../actions/types'
+import { FETCH_REP_DATA, RESET_REPS } from '../actions/types'
 
 export default (state = null, action) => {
   switch (action.type) {
@@ -15,6 +11,9 @@ export default (state = null, action) => {
         ...state,
         [id]: { id, ...rest, ...role }
       }
+
+    case RESET_REPS:
+      return null
 
     default:
       return state

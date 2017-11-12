@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import Grid from 'material-ui/Grid'
 import { withStyles } from 'material-ui/styles'
 
@@ -13,16 +14,18 @@ const styles = theme => ({
 })
 
 const App = ({ classes, children }) => (
-  <div>
-    <Header />
-    <div className={classes.root}>
-      <Grid container spacing={24} justify='center'>
-        <Grid item xs={12} sm={10}>
-          {children}
+  <BrowserRouter>
+    <div>
+      <Header />
+      <div className={classes.root}>
+        <Grid container spacing={24} justify='center'>
+          <Grid item xs={12} sm={10}>
+            {children}
+          </Grid>
         </Grid>
-      </Grid>
+      </div>
     </div>
-  </div>
+  </BrowserRouter>
 )
 
 export default withStyles(styles)(App)

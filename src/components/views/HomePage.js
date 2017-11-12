@@ -9,6 +9,10 @@ import RepCard from '../RepCard'
 import * as actions from '../../actions'
 
 class HomePage extends Component {
+  componentDidMount() {
+    this.props.user || !this.props.reps || this.props.resetReps()
+  }
+  
   renderReps() {
     const { state } = this.props.user
     const reps = { ...this.props.reps }
@@ -24,12 +28,12 @@ class HomePage extends Component {
   }
 
   render() {
-    const { user, reps, submitAddressForm } = this.props
+    const { user, submitAddressForm } = this.props
 
     return (
       <div>
           {
-            !reps
+            !user
               ? <AddressForm onFormSubmit={() => submitAddressForm} />
               : <div>
                   <Grid container spacing={24} justify='center'>

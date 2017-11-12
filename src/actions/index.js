@@ -4,14 +4,17 @@ import {
   FETCH_USER_DATA,
   FETCH_REP_DATA,
   FETCH_TIMES_DATA,
-}from './types'
+  RESET_REPS,
+} from './types'
 
-const ROOT_URL = 'https://speakforme.blif.io/api/v1/'
+import { USER_ENDPOINT, REP_ENDPOINT, NYT_ENDPOINT } from './api-endpoints'
+
+export const resetReps = () => ({ type: RESET_REPS })
 
 export const submitAddressForm = values => async dispatch => {
   const { address, zip } = values
 
-  const response = await axios.get(`${ROOT_URL}user`, {
+  const response = await axios.get(USER_ENDPOINT, {
     params: {
       address: `${address} ${zip}`
     }
@@ -34,7 +37,7 @@ export const fetchRepIds = (state, chamber, district) => {
 
   return async dispatch => {
     const response =
-      await axios.get(`${ROOT_URL}representatives/${chamber}`,
+      await axios.get(`${REP_ENDPOINT}/${chamber}`,
         { params }
       )
 
@@ -46,13 +49,13 @@ export const fetchRepIds = (state, chamber, district) => {
 }
 
 export const fetchRepData = (id) => async dispatch => {
-  const response = await axios.get(`${ROOT_URL}representatives/${id}`)
+  const response = await axios.get(`${REP_ENDPOINT}/${id}`)
 
   dispatch({ type: FETCH_REP_DATA, payload: response.data })
 }
 
 export const fetchTimesData = (firstName, lastName, id) => async dispatch => {
-  const response = await axios.get(`${ROOT_URL}representatives/nyt/articles`, {
+  const response = await axios.get(NYT_ENDPOINT, {
     params: { name: `${firstName} ${lastName}` }
   })
 
