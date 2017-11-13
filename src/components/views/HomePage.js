@@ -1,29 +1,31 @@
 import { map as _map } from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Grid from 'material-ui/Grid'
+import { Grid } from 'semantic-ui-react'
 
 import AddressForm from '../forms/AddressForm'
 import RepCard from '../RepCard'
 
 import * as actions from '../../actions'
 
+const { Column: Col, Row } = Grid
+
 class HomePage extends Component {
   componentDidMount() {
     this.props.user || !this.props.reps || this.props.resetReps()
   }
-  
+
   renderReps() {
     const { state } = this.props.user
     const reps = { ...this.props.reps }
 
     return _map(reps, rep => (
-      <Grid item xs={12} sm={4} key={rep.id}>
+      <Col width={4} key={rep.id}>
         <RepCard
           state={state}
           { ...rep }
         />
-      </Grid>
+      </Col>
     ))
   }
 
@@ -32,20 +34,24 @@ class HomePage extends Component {
 
     return (
       <div>
-          {
-            !user
-              ? <AddressForm onFormSubmit={() => submitAddressForm} />
-              : <div>
-                  <Grid container spacing={24} justify='center'>
-                    <Grid item xs={12}>
+        {
+          !user
+            ? <AddressForm onFormSubmit={() => submitAddressForm} />
+            : <div>
+                <Grid centered>
+                  <Row>
+                    <Col width={12}>
                       Showing results for {user.address}
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={24} justify='center'>
+                    </Col>
+                  </Row>
+                </Grid>
+                <Grid centered stackable>
+                  <Row columns={12}>
                     {this.renderReps()}
-                  </Grid>
-                </div>
-          }
+                  </Row>
+                </Grid>
+              </div>
+        }
       </div>
     )
   }

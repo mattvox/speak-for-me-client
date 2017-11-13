@@ -1,22 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { withStyles } from 'material-ui/styles'
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card'
-import Button from 'material-ui/Button'
-import Typography from 'material-ui/Typography'
-
-const styles = {
-  card: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 300,
-  },
-}
+import { Card, Image } from 'semantic-ui-react'
+// import { withStyles } from 'material-ui/styles'
+// import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card'
+// import Button from 'material-ui/Button'
+// import Typography from 'material-ui/Typography'
 
 const MediaCard = props => {
   const {
-    classes,
     id,
     first_name,
     last_name,
@@ -26,34 +17,26 @@ const MediaCard = props => {
   } = props
 
   return (
-    <div>
-      <Card className={classes.card}>
-        <CardMedia
-          className={classes.media}
-          image={`https://theunitedstates.io/images/congress/original/${id}.jpg`}
-          title={id}
-        />
-        <CardContent>
-          <Typography type='headline' component='h2'>
-            {`${first_name} ${last_name}`}
-          </Typography>
-          <Typography type='body1' component='div'>
-            {party === 'D' ? 'Democrat': ''}
-            {party === 'R' ? 'Republican': ''}
-            {party === 'I' ? 'Independent': ''}
-          </Typography>
-          <Typography component='p'>
-            {title} for {state}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button dense color="primary">
-            <Link to={`/reps/${id}`}>Learn More</Link>
-          </Button>
-        </CardActions>
-      </Card>
-    </div>
+    <Card centered fluid>
+      <Image src={`https://theunitedstates.io/images/congress/original/${id}.jpg`} fluid />
+      <Card.Content>
+        <Card.Header>
+          {`${first_name} ${last_name}`}
+        </Card.Header>
+        <Card.Meta>
+          {party === 'D' ? 'Democrat': ''}
+          {party === 'R' ? 'Republican': ''}
+          {party === 'I' ? 'Independent': ''}
+        </Card.Meta>
+        <Card.Description>
+          {title} for {state}
+        </Card.Description>
+      </Card.Content>
+      <Card.Content extra>
+        <Link to={`/reps/${id}`}>LEARN MORE</Link>
+      </Card.Content>
+    </Card>
   )
 }
 
-export default withStyles(styles)(MediaCard)
+export default MediaCard

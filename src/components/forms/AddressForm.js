@@ -1,13 +1,15 @@
 import { map as _map, each as _each } from 'lodash'
 import React, { Component } from 'react'
 import { reduxForm, Field, reset } from 'redux-form'
-import Grid from 'material-ui/Grid'
+import { Grid } from 'semantic-ui-react'
 import { withStyles } from 'material-ui/styles'
 import Button from 'material-ui/Button'
 import Done from 'material-ui-icons/Done'
 
 import FormField from './FormField'
 import formFields from './formFields'
+
+const { Column: Col, Row } = Grid
 
 const styles = theme => ({
   button: {
@@ -25,14 +27,14 @@ class AddressForm extends Component {
   renderFields() {
     return _map(formFields, ({ label, name }) => {
       return (
-        <Grid item xs={12} key={name}>
+        <Col mobile={16} tablet={12} computer={10} key={name}>
           <Field
             component={FormField}
             type='text'
             label={label}
             name={name}
           />
-        </Grid>
+        </Col>
       )
     })
   }
@@ -41,44 +43,34 @@ class AddressForm extends Component {
     const { pristine, submitting, invalid, handleSubmit, onFormSubmit, values } = this.props
 
     return (
-      <div style={{ margin: '60px' }}>
+      <div style={{ marginTop: '60px' }}>
         <form
           onSubmit={handleSubmit(onFormSubmit(values))}
         >
-          <Grid
-            container
-            justify='center'
-            spacing={24}
-            style={{ marginTop: '30px' }}
-          >
-            <Grid item xs={12} sm={10} md={8}>
+          <Grid columns={1} centered>
+            <Row>
               {this.renderFields()}
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            justify='center'
-            spacing={24}
-            style={{ marginTop: '30px' }}
-          >
-            <Grid item>
-              <Button
-                raised color='primary'
-                onClick={() => this.props.dispatch(reset('addressForm'))}
-              >
-                Clear
-              </Button>
-              <Button
-                type='submit'
-                className={this.props.classes.button}
-                raised
-                color="accent"
-                disabled={pristine || submitting || invalid}
-              >
-                Submit
-                <Done className={this.props.classes.rightIcon} />
-              </Button>
-            </Grid>
+            </Row>
+            <Row>
+              <Col width={6} textAlign={'center'}>
+                <Button
+                  raised color='primary'
+                  onClick={() => this.props.dispatch(reset('addressForm'))}
+                >
+                  Clear
+                </Button>
+                <Button
+                  type='submit'
+                  className={this.props.classes.button}
+                  raised
+                  color="accent"
+                  disabled={pristine || submitting || invalid}
+                >
+                  Submit
+                  <Done className={this.props.classes.rightIcon} />
+                </Button>
+              </Col>
+            </Row>
           </Grid>
         </form>
       </div>
