@@ -20,7 +20,7 @@ class HomePage extends Component {
     const reps = { ...this.props.reps }
 
     return _map(reps, rep => (
-      <Col width={5} key={rep.id}>
+      <Col key={rep.id}>
         <RepCard
           state={state}
           { ...rep }
@@ -40,14 +40,14 @@ class HomePage extends Component {
             : <div>
                 <Grid centered>
                   <Row>
-                    <Col width={15}>
+                    <Col width={16}>
                       <Header as='h3'>
                         Showing results for {user.address}
                       </Header>
                     </Col>
                   </Row>
                 </Grid>
-                <Grid centered stackable>
+                <Grid centered stackable columns={3}>
                   <Row>
                     {this.renderReps()}
                   </Row>

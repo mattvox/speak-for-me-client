@@ -1,27 +1,12 @@
 import { map as _map, each as _each } from 'lodash'
 import React, { Component } from 'react'
 import { reduxForm, Field, reset } from 'redux-form'
-import { Grid } from 'semantic-ui-react'
-import { withStyles } from 'material-ui/styles'
-import Button from 'material-ui/Button'
-import Done from 'material-ui-icons/Done'
+import { Grid, Form, Button } from 'semantic-ui-react'
 
 import FormField from './FormField'
 import formFields from './formFields'
 
 const { Column: Col, Row } = Grid
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit,
-  },
-  rightIcon: {
-    marginLeft: theme.spacing.unit,
-  },
-})
 
 class AddressForm extends Component {
   renderFields() {
@@ -30,6 +15,7 @@ class AddressForm extends Component {
         <Col mobile={16} tablet={12} computer={10} key={name}>
           <Field
             component={FormField}
+            as={Form.Input}
             type='text'
             label={label}
             name={name}
@@ -44,7 +30,7 @@ class AddressForm extends Component {
 
     return (
       <div style={{ marginTop: '60px' }}>
-        <form
+        <Form
           onSubmit={handleSubmit(onFormSubmit(values))}
         >
           <Grid columns={1} centered>
@@ -52,27 +38,27 @@ class AddressForm extends Component {
               {this.renderFields()}
             </Row>
             <Row>
-              <Col width={6} textAlign={'center'}>
+              <Col width={8} textAlign={'center'}>
                 <Button
-                  raised color='primary'
-                  onClick={() => this.props.dispatch(reset('addressForm'))}
+                  color='red'
+                  onClick={
+                    () => this.props.dispatch(reset('addressForm'))
+                  }
+                  disabled={pristine || submitting}
                 >
                   Clear
                 </Button>
                 <Button
                   type='submit'
-                  className={this.props.classes.button}
-                  raised
-                  color="accent"
+                  color='blue'
                   disabled={pristine || submitting || invalid}
                 >
                   Submit
-                  <Done className={this.props.classes.rightIcon} />
                 </Button>
               </Col>
             </Row>
           </Grid>
-        </form>
+        </Form>
       </div>
     )
   }
@@ -91,4 +77,4 @@ export default reduxForm({
   validate,
   form: 'addressForm',
   destroyOnUnmount: true,
-})(withStyles(styles)(AddressForm))
+})(AddressForm)

@@ -1,16 +1,21 @@
 import React from 'react'
-import TextField from 'material-ui/TextField'
+import { Form, Message } from 'semantic-ui-react'
 
 const FormField = ({ input, label, meta: { error, touched } }) => {
   return (
     <div>
-      <TextField
-        {...input}
-        label={label}
-        margin='normal'
-        helperText={touched && error}
-        fullWidth
-      />
+      <Form.Field style={{ padding: 10 }}>
+        <Form.Input
+          {...input}
+          label={label}
+          required
+        />
+        <Message
+          error
+          visible={touched && !!error}
+          content={touched && error}
+        />
+      </Form.Field>
     </div>
   )
 }

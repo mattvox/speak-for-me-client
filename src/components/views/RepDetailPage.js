@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Grid from 'material-ui/Grid'
+import { Grid } from 'semantic-ui-react'
 
 import RepDetailCard from '../RepDetailCard'
 import MediaCard from '../MediaCard'
@@ -47,13 +47,13 @@ class RepDetailPage extends Component {
     const { docs } = this.props.news[id].nyt.response
 
     return docs.map(story => (
-      <Grid item xs={12} sm={4} key={story.web_url}>
+      <Grid.Column key={story.web_url}>
         <MediaCard
           url={story.web_url}
           snippet={story.snippet}
           headline={story.headline.main}
         />
-      </Grid>
+      </Grid.Column>
     ))
   }
 
@@ -61,7 +61,7 @@ class RepDetailPage extends Component {
     const { id } = this.props.match.params
 
     return (
-      <Grid item xs={12}>
+      <Grid>
         <RepDetailCard
           state='NJ'
           { ...this.props.reps[id] }
@@ -75,11 +75,11 @@ class RepDetailPage extends Component {
 
     return (
       <div>
-        <Grid container spacing={24} justify='center'>
+        <Grid stackable>
           {this.props.reps && this.props.reps[id] && this.renderRep()}
         </Grid>
         <div style={{ marginTop: 30 }}></div>
-        <Grid container spacing={24} justify='center'>
+        <Grid stackable centered columns={3}>
           {this.props.news && this.props.news[id] && this.renderNews()}
         </Grid>
       </div>
