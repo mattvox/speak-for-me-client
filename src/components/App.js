@@ -9,7 +9,7 @@ const { Column: Col, Row } = Grid
 const App = ({ children }) => (
   <BrowserRouter>
     <div>
-      {/* <Header /> */}
+      <Header />
         <Grid centered container>
           <Row>
             <Col width={16}>

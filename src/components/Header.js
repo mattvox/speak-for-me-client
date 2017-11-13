@@ -1,28 +1,18 @@
 import React from 'react'
-import { withStyles } from 'material-ui/styles'
-import AppBar from 'material-ui/AppBar'
-import Toolbar from 'material-ui/Toolbar'
-import Typography from 'material-ui/Typography'
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-  },
-  flex: {
-    flex: 1,
-  },
-})
+import { Link } from 'react-router-dom'
+import { Container, Icon, Menu } from 'semantic-ui-react'
 
 const Header = ({ classes }) => (
-  <div className={classes.root}>
-      <AppBar position="static" color='primary'>
-        <Toolbar>
-          <Typography type="title" color="inherit" className={classes.flex}>
-            Who Speaks For Me
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </div>
+  <Menu borderless inverted style={{ marginBottom: 40 }}>
+    <Container>
+      <Menu.Item as={Link} to='/'>
+        <Menu.Header as='h2'>
+          <Icon name='bullhorn' style={{ marginRight: 12 }} />
+          who speaks for me
+        </Menu.Header>
+      </Menu.Item>
+    </Container>
+  </Menu>
 )
 
-export default withStyles(styles)(Header)
+export default Header

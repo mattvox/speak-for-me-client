@@ -1,7 +1,7 @@
 import { map as _map } from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Grid } from 'semantic-ui-react'
+import { Grid, Header } from 'semantic-ui-react'
 
 import AddressForm from '../forms/AddressForm'
 import RepCard from '../RepCard'
@@ -20,7 +20,7 @@ class HomePage extends Component {
     const reps = { ...this.props.reps }
 
     return _map(reps, rep => (
-      <Col width={4} key={rep.id}>
+      <Col width={5} key={rep.id}>
         <RepCard
           state={state}
           { ...rep }
@@ -40,13 +40,15 @@ class HomePage extends Component {
             : <div>
                 <Grid centered>
                   <Row>
-                    <Col width={12}>
-                      Showing results for {user.address}
+                    <Col width={15}>
+                      <Header as='h3'>
+                        Showing results for {user.address}
+                      </Header>
                     </Col>
                   </Row>
                 </Grid>
                 <Grid centered stackable>
-                  <Row columns={12}>
+                  <Row>
                     {this.renderReps()}
                   </Row>
                 </Grid>
